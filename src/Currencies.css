@@ -1,0 +1,102 @@
+p {
+  margin:auto;
+}
+
+.currencies {
+  background-color: #190061;
+  width: 50%;
+  margin: 5px;
+  border: 2px solid #3500D3;
+  font-size: 14px;
+  min-height: 90px
+}
+
+.table {
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  text-align: center;
+  min-height: 23px;
+}
+
+.row.banner {
+  background-color: #3500D3;
+  position: relative;
+  min-height: 51px;
+}
+
+.row.tabRow {
+  background-color: #3500D3;
+}
+
+.cell {
+  box-sizing: border-box;
+  flex-grow: 1;
+  overflow: hidden;
+  width: 20%;
+  padding: 2px 3px;
+  border: 1px solid #3500D3;
+  display: flex;
+}
+
+.tab {
+  padding: 1px;
+  border-style: solid;
+  border-color: #3500D3;
+  border-top: 0;
+  border-radius: 10px 10px 0 0;
+  background: #282828;
+  font-size: 15px;
+  cursor: pointer;
+  width: 46px;
+}
+
+.addCoinButton {
+  cursor: pointer;
+}
+
+.addCoinButton:hover {
+  background-color: #240090;
+}
+
+.tab:hover {
+  background: #240090;
+}
+
+.tab.active {
+  background: #190061;
+  cursor: default;
+}
+
+.liveButton {
+  border: 1px solid white;
+  border-radius: 8px;
+  /* width: 51px; */
+  display: flex;
+  padding: 5px;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #282828;
+  cursor: pointer;
+}
+
+.liveButton.active {
+  color: red;
+}
+
+.liveIcon {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border: 1px solid white;
+  border-radius: 9px;
+  margin: auto;
+  margin-right: 5px;
+}
+
+.liveButton.active > .liveIcon {
+  background-color: red;
+}

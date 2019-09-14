@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import Web3Context from './Web3Context';
 import Logo from './Logo';
 import TopBar from './TopBar';
-import Ticker from './Ticker';
+import Currencies from './Currencies';
 import './App.css';
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
         <header>
           <Logo {...logoProps}/>
           { (provider && provider.isMetaMask) &&
-            <button onClick={provider.enable}>Start</button>
+            <h1>Log In</h1>
           }
           { (!provider || !provider.isMetaMask) &&
             <div>
@@ -60,7 +60,7 @@ function App() {
       { account &&
         <div className="main">
           <TopBar address={account} network={network}/>
-          <Ticker />
+          <Currencies />
         </div>
       }
     </div>
