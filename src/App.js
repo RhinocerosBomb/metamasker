@@ -1,9 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import { ethers } from 'ethers';
 import Web3Context from './Web3Context';
 import Logo from './Logo';
 import TopBar from './TopBar';
 import Currencies from './Currencies';
+import MetaMask from './MetaMask';
 import './App.css';
 
 const logoProps = {
@@ -22,9 +23,9 @@ const logoProps = {
 };
 
 function App() {
-  const [provider, setProvider] = useState(window.ethereum);
-  const [account, setAccount] = useState(provider.selectedAddress);
-  const [network, setNetwork] = useState(provider.networkVersion);
+  const [provider, setProvider] = useState(window.ethereum || null);
+  const [account, setAccount] = useState(provider ? provider.selectedAddress : null);
+  const [network, setNetwork] = useState(provider ? provider.networkVersion : null);
 
   useEffect(() => {
     let web3Provider;
@@ -33,20 +34,17 @@ function App() {
       web3Provider = window['ethereum'] || window.web3.currentProvider;
       // Web3 browser user detected. You can now use the provider.
       web3Provider.autoRefreshOnNetworkChange = false;
+
+      web3Provider.on('accountsChanged', account => {
+        setAccount(account);
+      });
+
+      web3Provider.on('networkChanged', network => {
+        setNetwork(network);
+      });
     }
 
-    web3Provider.on('accountsChanged', (account) => {
-      setAccount(account);
-    });
-
-    web3Provider.on('netWorkChanged', (network) => {
-      setNetwork(network);
-    });
-
-    if(provider != web3Provider) {
-      setProvider(web3Provider)
-    }
-
+    if(provider !== web3Provider) setProvider(web3Provider);
   }, []);
 
   const connectWithUser = () => {
@@ -64,7 +62,12 @@ function App() {
   }
 
   return (
-    <Web3Context.Provider value={new ethers.providers.Web3Provider(provider)}>
+    <Web3Context.Provider
+      value={{
+        provider: provider ? new ethers.providers.Web3Provider(provider) : null,
+        account: account,
+        network
+      }}>
       <div className="App">
         { !account &&
           <header>
@@ -90,8 +93,9 @@ function App() {
         }
         { account &&
           <div className="main">
-            <TopBar address={account} network={network}/>
+            <TopBar/>
             <Currencies />
+            <MetaMask />
           </div>
         }
       </div>

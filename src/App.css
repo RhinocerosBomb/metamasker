@@ -31,6 +31,7 @@
 
 .main {
   display: flex;
+  margin-top: 44px;
 }
 
 @keyframes App-logo-spin {

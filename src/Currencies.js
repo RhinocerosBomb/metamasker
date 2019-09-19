@@ -32,7 +32,6 @@ function Currencies (props) {
         currencyState.currencies.join(',') +
         '&api_key=4e10c72fe1bb6977185562d6da3b7632824a01a52fd24047caf3a6183b3acf5e')
       .then((payload) => {
-        console.log(payload);
         setData(payload.data.DISPLAY);
       });
   }
