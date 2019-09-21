@@ -137,7 +137,7 @@ function Currencies (props) {
         onChange={selectedOptions => updateCurrencies(selectedOptions.map(option => option.value))}
         onKeyPress={(e) => enterKeyPress(e, addCurrency)}
         isClearable={false}
-        open={showSearch === 'CURR'}
+        show={showSearch === 'CURR'}
         onClose={() => setShowSearch(null)}
         isMulti
         autoFocus
@@ -148,7 +148,7 @@ function Currencies (props) {
         onChange={selectedOptions => updateCurrencies(selectedOptions.map(option => option.value))}
         onKeyPress={(e) => enterKeyPress(e, addCurrency)}
         isClearable={false}
-        open={showSearch === 'CRYP'}
+        show={showSearch === 'CRYP'}
         onClose={() => setShowSearch(null)}
         isMulti
         autoFocus

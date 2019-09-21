@@ -7,9 +7,9 @@ import EthersContext from './EthersContext';
 import './WalletManager.css';
 
 const defaultWalletFields = {name: '', privateKey: ''}
-function WalletManager({wallets, setWallets}) {
+function WalletManager({setWallets}) {
   const [walletFields, setWalletFields] = useState(defaultWalletFields);
-  const {provider} = useContext(EthersContext);
+  const {provider, wallets} = useContext(EthersContext);
 
   const addWallet = () => {
     if(ethers.utils.isHexString(walletFields.privateKey) &&
@@ -39,7 +39,7 @@ function WalletManager({wallets, setWallets}) {
         </label>
         <button onClick={() => addWallet()}>Add</button>
       </div>
-      <div classNames="wallets">
+      <div className="wallets">
       { wallets.map((wallet, i) => (
         <div className="wallet" key={i}>
           <span onClick={() => deleteWallet(i)}><FontAwesomeIcon icon={faTimes}/></span>

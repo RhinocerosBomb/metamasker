@@ -67,7 +67,8 @@ function App() {
       value={{
         provider: provider ? new ethers.providers.Web3Provider(provider) : null,
         account: account,
-        network
+        network,
+        wallets
       }}>
       <div className="App">
         { !account &&
@@ -100,7 +101,7 @@ function App() {
               <MetaMask />
             </div>
             <div className="pageRow">
-              <WalletManager wallets={wallets} setWallets={setWallets}/>
+              <WalletManager setWallets={setWallets}/>
             </div>
           </div>
         }
