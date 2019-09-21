@@ -96,11 +96,11 @@ function App() {
         { account &&
           <div className="main">
             <TopBar/>
-            <div className="pageRow">
+            <div className="pageRow first">
               <Currencies />
               <MetaMask />
             </div>
-            <div className="pageRow">
+            <div className="pageRow second">
               <WalletManager setWallets={setWallets}/>
             </div>
           </div>

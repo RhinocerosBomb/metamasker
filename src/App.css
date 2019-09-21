@@ -44,13 +44,47 @@ html, body {
 
 .pageRow {
   display: flex;
-  height: 50%;
+}
+
+.pageRow.first {
+  height: 80%;
+  padding: 0 30px 0 30px;
+}
+
+.pageRow.second {
+  height: 20%;
+  padding: 30px 30px 0 30px;
 }
 
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+input {
+  border: none;
+  background: none;
+  padding: none;
+  color: #fff;
+  border: solid #fff;
+  border-width: 0 0 1px 0;
+}
+
+input:focus {
+  border-color: #3500d3;
+}
+
+input::placeholder {
+  color: #fff;
+  opacity: 0.8;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
 }
 
 @keyframes App-logo-spin {
