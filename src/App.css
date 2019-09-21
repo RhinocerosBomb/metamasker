@@ -3,6 +3,9 @@ html, body {
   height: 100%;
 }
 
+#root, .App {
+  height: 100%;
+}
 .App-header {
   min-height: 100vh;
   display: flex;
@@ -34,10 +37,17 @@ html, body {
 
 .main {
   display: flex;
+  flex-direction: column;
   padding-top: 44px;
+  height: 92%
 }
 
-ui {
+.pageRow {
+  display: flex;
+  height: 50%;
+}
+
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;

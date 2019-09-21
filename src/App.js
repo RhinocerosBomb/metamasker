@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { ethers } from 'ethers';
-import Web3Context from './Web3Context';
+import EthersContext from './EthersContext';
 import Logo from './Logo';
 import TopBar from './TopBar';
 import Currencies from './Currencies';
 import MetaMask from './MetaMask';
+import WalletManager from './WalletManager';
 import './App.css';
 
 const logoProps = {
@@ -26,7 +27,7 @@ function App() {
   const [provider, setProvider] = useState(window.ethereum || null);
   const [account, setAccount] = useState(provider ? provider.selectedAddress : null);
   const [network, setNetwork] = useState(provider ? provider.networkVersion : null);
-
+  const [wallets, setWallets] = useState([]);
   useEffect(() => {
     let web3Provider;
     if (typeof window.ethereum !== 'undefined'
@@ -62,7 +63,7 @@ function App() {
   }
 
   return (
-    <Web3Context.Provider
+    <EthersContext.Provider
       value={{
         provider: provider ? new ethers.providers.Web3Provider(provider) : null,
         account: account,
@@ -94,12 +95,17 @@ function App() {
         { account &&
           <div className="main">
             <TopBar/>
-            <Currencies />
-            <MetaMask />
+            <div className="pageRow">
+              <Currencies />
+              <MetaMask />
+            </div>
+            <div className="pageRow">
+              <WalletManager wallets={wallets} setWallets={setWallets}/>
+            </div>
           </div>
         }
       </div>
-    </Web3Context.Provider>
+    </EthersContext.Provider>
   );
 }
 
