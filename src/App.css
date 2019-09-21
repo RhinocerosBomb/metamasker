@@ -1,4 +1,7 @@
-
+html, body {
+  margin: 0;
+  height: 100%;
+}
 
 .App-header {
   min-height: 100vh;
@@ -31,7 +34,13 @@
 
 .main {
   display: flex;
-  margin-top: 44px;
+  padding-top: 44px;
+}
+
+ui {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 @keyframes App-logo-spin {

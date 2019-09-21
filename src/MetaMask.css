@@ -1,0 +1,23 @@
+.MetaMask {
+  background: #e57f25;
+  margin: 5px;
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.etherLogo {
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 30px;
+  }
+
+.center {
+  text-align: center;
+}
+
+.navItem {
+  display: inline;
+  float: left;
+}

@@ -36,7 +36,7 @@ function App() {
       web3Provider.autoRefreshOnNetworkChange = false;
 
       web3Provider.on('accountsChanged', account => {
-        setAccount(account);
+        setAccount(account[0]);
       });
 
       web3Provider.on('networkChanged', network => {
