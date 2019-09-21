@@ -1,11 +1,11 @@
 import React, {useContext} from 'react';
 import Logo from './Logo';
-import Web3Context from './Web3Context';
+import EthersContext from './EthersContext';
 
 import './TopBar.css';
 import versionToNetworkName from './utils/versionToNetworkName'
 function TopBar() {
-  const {network} = useContext(Web3Context);
+  const {network} = useContext(EthersContext);
   const logoProps = {
     pxNotRatio: true,
     width: 30,

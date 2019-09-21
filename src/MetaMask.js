@@ -4,10 +4,10 @@ import {ethers} from 'ethers';
 
 import etherLogo from './resources/EtherLogo.svg';
 import './MetaMask.css';
-import Web3Context from './Web3Context';
+import EthersContext from './EthersContext';
 
 function MetaMask() {
-  const {provider, account, network} = useContext(Web3Context);
+  const {provider, account, network} = useContext(EthersContext);
   const [logs, setLogs] = useState([]);
   const [balance, setBalance] = useState();
   const [privateKeyFrom, setprivateKeyFrom] = useState('');
@@ -37,10 +37,10 @@ function MetaMask() {
       <div className="center">
         {balance} ETH
       </div>
-      <ui>
+      <ul>
         <li className="navItem" onClick={() => switchTabs('logs')}>Logs</li>
         <li className="navItem" onClick={() => switchTabs('transfer')}>Transfer</li>
-      </ui>
+      </ul>
       <div>
         { activeTab === 'logs' &&
           <div>
