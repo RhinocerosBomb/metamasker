@@ -1,5 +1,6 @@
 import React, {useState, useContext} from 'react';
 import {ethers} from 'ethers';
+import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet, faTimes } from '@fortawesome/free-solid-svg-icons';
 import EthersContext from '../context/EthersContext';
@@ -26,25 +27,30 @@ function WalletManager({setWallets}) {
 
   return (
     <div className="walletManager">
+      <div><h3>Wallet Manager</h3></div>
       <div className="walletFields">
-        <label>
-          Name:
+        <div className="inputBox walletField">
+          Name
           <input type="text" value={walletFields.name} onChange={e => setWalletFields({...walletFields, name: e.target.value})}/>
-        </label>
-        <label>
-          Private Key:
-          <div className="inputBox">
-            <input type="text" value={walletFields.privateKey} onChange={e => setWalletFields({...walletFields, privateKey: e.target.value})}/>
-            <hr />
-          </div>
-        </label>
-        <button onClick={() => addWallet()}>Add</button>
+          <hr />
+        </div>
+        <div className="inputBox walletField">
+          Private Key
+          <input type="text" value={walletFields.privateKey} onChange={e => setWalletFields({...walletFields, privateKey: e.target.value})}/>
+          <hr />
+        </div>
+        <div className="addWalletBtn">
+          <button onClick={() => addWallet()}>Add</button>
+        </div>
       </div>
-      <div className="wallets">
+      <div className={classNames({wallets: true, justifyCenter: !wallets.length})}>
+      { !wallets.length &&
+        <div>You Have No Wallets</div>
+      }
       { wallets.map((wallet, i) => (
         <div className="wallet" key={i}>
-          <span onClick={() => deleteWallet(i)}><FontAwesomeIcon icon={faTimes}/></span>
-          <FontAwesomeIcon icon={faWallet} size="lg"/>
+          <span className="times" onClick={() => deleteWallet(i)}><FontAwesomeIcon icon={faTimes}/></span>
+          <FontAwesomeIcon icon={faWallet} size="3x"/>
           {wallet.name}
         </div>
       ))}
