@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Select from 'react-select';
+import Modal from './Modal';
 
 const customSelectStyles = {
   control: styles => ({
@@ -28,29 +29,13 @@ const customSelectStyles = {
     '&:hover': {backgroundColor: '#190061'}
   })
 };
-function SearchBar({open, onClose, ...props}) {
-  const [show, setShow] = useState(open);
-
-  const close = (e) => {
-    e.stopPropagation();
-    onClose();
-    setShow(false);
-  }
-
-  useEffect(() => {
-    if (open) {
-      setShow(true);
-    }
-  }, [open]);
-
+function SearchBar({show, onClose, ...props}) {
   return (
-    <React.Fragment>{ show &&
-      <div className="backdrop" onClick={close}>
+      <Modal show={show} onClose={onClose}>
         <div className="searchContainer" onClick={e => e.stopPropagation()}>
           <Select styles={customSelectStyles} maxMenuHeight={230} {...props}/>
         </div>
-      </div>
-    }</React.Fragment>
+      </Modal>
   );
 }
 

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Logo from './Logo';
+import EthersContext from './EthersContext';
+
 import './TopBar.css';
 import versionToNetworkName from './utils/versionToNetworkName'
-function TopBar(props) {
+function TopBar() {
+  const {network} = useContext(EthersContext);
   const logoProps = {
     pxNotRatio: true,
     width: 30,
@@ -21,7 +24,7 @@ function TopBar(props) {
   return (
     <div className="topBar">
       <Logo {...logoProps}/>
-      <span className="network">{versionToNetworkName(props.network)}</span>
+      <span className="network">{versionToNetworkName(network)}</span>
     </div>
   );
 }

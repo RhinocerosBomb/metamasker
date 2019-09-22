@@ -1,5 +1,11 @@
+html, body {
+  margin: 0;
+  height: 100%;
+}
 
-
+#root, .App {
+  height: 100%;
+}
 .App-header {
   min-height: 100vh;
   display: flex;
@@ -16,32 +22,69 @@
 
 .backdrop {
   top: 0;
-position: fixed;
-bottom: 0;
-left: 0;
-right: 0;
-background: rgba(0,0,0,0.5);
-z-index: 1;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
 }
-
-.select__menu-list::-webkit-scrollbar {
-  width: 4px;
-  height: 0px;
-}
-.select__menu-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-.select__menu-list::-webkit-scrollbar-thumb {
-  background: #888;
-}
-.select__menu-list::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
 
 .searchContainer {
   margin: 15% 10%;
   z-index: 100;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  padding-top: 44px;
+  height: 92%
+}
+
+.pageRow {
+  display: flex;
+}
+
+.pageRow.first {
+  height: 80%;
+  padding: 0 30px 0 30px;
+}
+
+.pageRow.second {
+  height: 20%;
+  padding: 30px 30px 0 30px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  border: none;
+  background: none;
+  padding: none;
+  color: #fff;
+  border: solid #fff;
+  border-width: 0 0 1px 0;
+}
+
+input:focus {
+  border-color: #3500d3;
+}
+
+input::placeholder {
+  color: #fff;
+  opacity: 0.8;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
 }
 
 @keyframes App-logo-spin {
