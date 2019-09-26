@@ -1,15 +1,473 @@
-body {
+/* -----------Normalize----------- */
+html, body {
   margin: 0;
+  height: 100%;
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0C0032;
+  background-image: url(./resources/background_files/129822.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: #fff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+main,
+li {
+  display: block;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-size: inherit;
+}
+strong {
+  font-weight: bold;
+}
+a,
+button {
+  color: inherit;
+  transition: 0.3s;
+}
+a {
+  text-decoration: none;
+}
+button {
+  overflow: visible;
+  border: 0;
+  font: inherit;
+  -webkit-font-smoothing: inherit;
+  letter-spacing: inherit;
+  background: none;
+  cursor: pointer;
+}
+::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+:focus {
+  outline: 0;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
+
+#root {
+  opacity: 0.8;
+}
+
+#root, .App {
+  height: 100%;
+}
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #F90;
+	background-image: -webkit-linear-gradient(45deg,
+	                                          rgba(255, 255, 255, .2) 25%,
+											  transparent 25%,
+											  transparent 50%,
+											  rgba(255, 255, 255, .2) 50%,
+											  rgba(255, 255, 255, .2) 75%,
+											  transparent 75%,
+											  transparent)
+}
+
+
+/* -----------Form Styles----------- */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+.inputBox {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.inputBox > input[type="text"] {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    color: #fff;
+  }
+
+
+input[type="text"]:focus ~ hr:first-of-type{
+  background:  #1161ee;
+  transform: scale(1);
+  height: 2px;
+}
+
+input[type="text"]:focus::placeholder {
+  color: #1161ee;
+  opacity: 0.5;
+}
+
+hr {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  margin-bottom: 0px;
+  margin: 0;
+  border: 0;
+  background:  #fff;
+  height: 0px;
+  transition: transform 0.5s linear, background 0.4s linear;
+  transform: scale(0, 1);
+}
+
+button {
+  padding: 10px 15px;
+  border: 1px solid #fff;
+  transition: all 0.4s ease 0s;
+}
+
+button:hover {
+  background: #1161ee;
+  border-color: #1161ee;
+}
+
+/* -----------App.js----------- */
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%
+}
+
+.pageRow {
+  display: flex;
+}
+
+.pageRow.first {
+  height: 65%;
+  padding: 0 30px 0 30px;
+}
+
+.pageRow.second {
+  height: 35%;
+  padding: 30px 30px 30px 30px;
+}
+/* -----------Modal.js----------- */
+.backdrop {
+  top: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+.modalContainer {
+  z-index: 100;
+}
+
+/* -----------SearchBar.js----------- */
+.searchContainer {
+  margin: 15% 10%;
+}
+
+/* -----------Currencies.js----------- */
+p {
+  margin:auto;
+}
+
+.currencies {
+  background-color: #3500D3;;
+  width: 50%;
+  margin-right: 15px;
+  font-size: 14px;
+  min-height: 90px;
+  padding: 10px;
+  position: relative;
+}
+
+.table {
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  text-align: center;
+  min-height: 23px;
+}
+
+.banner {
+  background-color: #3500D3;
+  margin: auto;
+  padding: 10px 0;
+}
+
+.row.tabRow {
+  background-color: #3500D3;
+}
+
+.cell {
+  box-sizing: border-box;
+  flex-grow: 1;
+  overflow: hidden;
+  width: 20%;
+  padding: 2px 3px;
+  background-color: #190061;
+  border: 1px solid #3500D3;
+  display: flex;
+}
+
+.tab {
+  padding: 1px;
+  border-style: solid;
+  border-color: #3500D3;
+  border-top: 0;
+  border-radius: 10px 10px 0 0;
+  background: #282828;
+  font-size: 15px;
+  cursor: pointer;
+  width: 46px;
+}
+
+.addCoinButton {
+  cursor: pointer;
+}
+
+.addCoinButton:hover {
+  background-color: #190061;
+}
+
+.tab:hover {
+  background: #240090;
+}
+
+.tab.active {
+  background: #190061;
+  cursor: default;
+}
+
+.liveButton {
+  border: 1px solid white;
+  /* width: 51px; */
+  display: flex;
+  padding: 5px;
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  background: #190061;
+  cursor: pointer;
+}
+
+.liveButton.active {
+  color: red;
+}
+
+.liveIcon {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border: 1px solid white;
+  border-radius: 9px;
+  margin: auto;
+  margin-right: 5px;
+}
+
+.liveButton.active > .liveIcon {
+  background-color: red;
+}
+/* -----------LoadingBar.js----------- */
+.loadingBarBorder {
+  background: white;
+}
+
+.loadingBarFill {
+  background: blue;
+}
+
+/* -----------MetaMask.js----------- */
+.MetaMask {
+  background: #e57f25;
+  margin-left: 15px;
+  padding: 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.etherLogo {
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 30px;
+  }
+
+.center {
+  text-align: center;
+}
+
+.navTab {
+  display: inline;
+  float: left;
+  padding: 3px;
+  cursor: pointer;
+  background-color: #d66f15;
+}
+
+.navTab.active {
+  background-color: #bc5907;
+}
+
+.tabs {
+  width: 100%;
+  display: flex;
+}
+
+.logsTransferContainer {
+  flex-grow: 1;
+  background-color: #bc5907;
+  padding: 5px;
+  position: relative;
+}
+
+.chooseWallet {
+  color: burlywood;
+  text-align: center;
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  cursor: pointer;
+}
+
+.chooseWallet:hover {
+  color: #fff;
+}
+
+/* -----------TopBar.js----------- */
+.topBar {
+  width: 100%;
+  max-height: 44px;
+  background-color: #2828282;
+}
+
+.network {
+  float: right;
+  margin-right: 15px;
+}
+
+/* -----------WalletChooser.js----------- */
+
+.walletChooser {
+    background-color: #240090;
+    padding: 20px;
+    margin: 10% 15%;
+    text-align: center;
+    box-shadow: 5px 10px 18px #000;
+}
+
+.walletChooserWallets {
+  display: flex;
+  height: 115px;
+}
+
+.walletOkBtn {
+  margin-top: 20px;
+}
+
+.wallet.walletSelect {
+  color: #583ead;
+}
+
+.wallet.walletSelect:hover {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  color: #d66f15;
+}
+
+.wallet.walletSelect.active {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  color: #d66f15;
+}
+
+/* -----------WalletManager.js----------- */
+.walletManager {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #116823;
+  padding: 10px;
+  border: 10px solid #0a4416;
+}
+
+.walletFields {
+  display: flex;
+}
+
+.walletField {
+  flex-grow: 1;
+  margin-right: 30px
+}
+
+.addWalletBtn {
+  margin-right: 20px;
+}
+
+.wallets {
+  width: 100%;
+  height: 100%;
+  background: #0a4416;
+  box-shadow: inset 0 0 9px #000;
+  display: flex;
+  align-items: center;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.justifyCenter {
+  justify-content: center;
+}
+
+.wallet {
+  height: 70px;
+  width: 90px;
+  margin: 0 30px;
+  overflow-wrap: break-word;
+  text-align: center;
+  position: relative;
+}
+
+.times {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #D3D3D3;
+}
+
+.times:hover {
+  color: #fff;
 }
