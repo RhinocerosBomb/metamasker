@@ -9,22 +9,31 @@ import Modal from './Modal';
 function WalletChooser({activeWallet, show, close, onClose, selectWallet, ...props}) {
   const {wallets} = useContext(EthersContext);
   const [selectedWallet, setSelectedWallet] = useState(activeWallet);
+
+  const toggleWallet = wallet => {
+    setSelectedWallet(selectedWallet === wallet ? null : wallet);
+  }
+
   return (
       <Modal show={show} onClose={onClose}>
-        <div>
-          { !!wallets.length &&
-            wallets.map((wallet, i) => (
-              <div className={classNames({wallet: true})} key={i}  onClick={() => setSelectedWallet(wallet)}>
-                <FontAwesomeIcon icon={faWallet} size="lg"/>
-                {wallet.name}
+        <div className="walletChooser">
+            { !!wallets.length &&
+              <div className="walletChooserWallets">
+                {wallets.map((wallet, i) => (
+                  <div className={classNames({wallet: true, walletSelect: true, active: selectedWallet === wallet})} key={i}  onClick={() => toggleWallet(wallet)}>
+                    <div>
+                      <FontAwesomeIcon icon={faWallet} size="4x"/>
+                    </div>
+                    {wallet.name}
+                  </div>
+                ))}
               </div>
-            ))
-          }
+            }
           { !wallets.length &&
             <span>You have no wallets</span>
           }
           <div>
-            <button onClick={() => selectWallet(selectedWallet)}>Ok</button>
+            <button className="walletOkBtn" onClick={() => selectWallet(selectedWallet)}>Ok</button>
           </div>
         </div>
       </Modal>

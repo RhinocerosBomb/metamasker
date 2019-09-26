@@ -70,15 +70,8 @@ function Currencies (props) {
       <div className="table">
         { data &&
           <React.Fragment>
-            <div className="row banner">
-              <p><h2 style={{margin: 0}}>Tracker</h2></p>
-              <span
-                className={classNames({liveButton: true, active: liveMode})}
-                onClick={() => setLiveMode(!liveMode)}
-              >
-                <span className="liveIcon"></span>
-                <p>LIVE</p>
-              </span>
+            <div className="row">
+              <h3 className="banner">Crypto Tracker</h3>
             </div>
             <div className="row tabRow">
               {currencyState.currencies.map(val =>
@@ -129,6 +122,13 @@ function Currencies (props) {
 
   return (
     <div className="currencies">
+      <span
+        className={classNames({liveButton: true, active: liveMode})}
+        onClick={() => setLiveMode(!liveMode)}
+      >
+          <span className="liveIcon"></span>
+          <p>LIVE</p>
+        </span>
       <SearchBar
         value={currencyState.currencies.map(val => ({value: val, label: val}))}
         options={currencySymbols.map(val => ({value: val, label:val}))}

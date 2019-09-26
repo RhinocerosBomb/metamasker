@@ -23,7 +23,6 @@ function MetaMask() {
       provider.getBalance(account).then(newBalance => {
         setBalance(ethers.utils.formatEther(newBalance));
       });
-      provider.getLogs({address: account, toBlock: 6431141, fromBlock: 6431130}).then(newLogs => console.log(logs));
     }
   }, [provider, account, network]);
 

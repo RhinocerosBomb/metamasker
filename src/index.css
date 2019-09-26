@@ -68,6 +68,32 @@ img {
   height: 100%;
 }
 
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #F90;
+	background-image: -webkit-linear-gradient(45deg,
+	                                          rgba(255, 255, 255, .2) 25%,
+											  transparent 25%,
+											  transparent 50%,
+											  rgba(255, 255, 255, .2) 50%,
+											  rgba(255, 255, 255, .2) 75%,
+											  transparent 75%,
+											  transparent)
+}
+
+
 /* -----------Form Styles----------- */
 input:focus,
 select:focus,
@@ -157,8 +183,12 @@ button:hover {
 }
 
 .modalContainer {
-  margin: 15% 10%;
   z-index: 100;
+}
+
+/* -----------SearchBar.js----------- */
+.searchContainer {
+  margin: 15% 10%;
 }
 
 /* -----------Currencies.js----------- */
@@ -167,12 +197,13 @@ p {
 }
 
 .currencies {
-  background-color: #190061;
+  background-color: #3500D3;;
   width: 50%;
   margin-right: 15px;
-  border: 2px solid #3500D3;
   font-size: 14px;
-  min-height: 90px
+  min-height: 90px;
+  padding: 10px;
+  position: relative;
 }
 
 .table {
@@ -185,10 +216,10 @@ p {
   min-height: 23px;
 }
 
-.row.banner {
+.banner {
   background-color: #3500D3;
-  position: relative;
-  min-height: 51px;
+  margin: auto;
+  padding: 10px 0;
 }
 
 .row.tabRow {
@@ -201,6 +232,7 @@ p {
   overflow: hidden;
   width: 20%;
   padding: 2px 3px;
+  background-color: #190061;
   border: 1px solid #3500D3;
   display: flex;
 }
@@ -222,7 +254,7 @@ p {
 }
 
 .addCoinButton:hover {
-  background-color: #240090;
+  background-color: #190061;
 }
 
 .tab:hover {
@@ -236,14 +268,13 @@ p {
 
 .liveButton {
   border: 1px solid white;
-  border-radius: 8px;
   /* width: 51px; */
   display: flex;
   padding: 5px;
   position: absolute;
-  top: 4px;
-  right: 4px;
-  background: #282828;
+  top: 11px;
+  right: 11px;
+  background: #190061;
   cursor: pointer;
 }
 
@@ -347,8 +378,40 @@ p {
 }
 
 /* -----------WalletChooser.js----------- */
-.wallet.active {
-  color: green;
+
+.walletChooser {
+    background-color: #240090;
+    padding: 20px;
+    margin: 10% 15%;
+    text-align: center;
+    box-shadow: 5px 10px 18px #000;
+}
+
+.walletChooserWallets {
+  display: flex;
+  height: 115px;
+}
+
+.walletOkBtn {
+  margin-top: 20px;
+}
+
+.wallet.walletSelect {
+  color: #583ead;
+}
+
+.wallet.walletSelect:hover {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  color: #d66f15;
+}
+
+.wallet.walletSelect.active {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  color: #d66f15;
 }
 
 /* -----------WalletManager.js----------- */
@@ -381,7 +444,8 @@ p {
   box-shadow: inset 0 0 9px #000;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 .justifyCenter {
