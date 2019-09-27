@@ -424,17 +424,21 @@ p {
   border: 10px solid #0a4416;
 }
 
-.walletFields {
+.walletManagerHeaderContainer {
   display: flex;
 }
 
-.walletField {
+.walletManagerHeader {
   flex-grow: 1;
-  margin-right: 30px
 }
 
-.addWalletBtn {
-  margin-right: 20px;
+.createWalletBtn {
+  padding: 5px 6px 0 0;
+  cursor: pointer;
+}
+
+.createWalletBtn:hover {
+  color: #0a4416;
 }
 
 .wallets {
@@ -455,7 +459,7 @@ p {
 .wallet {
   height: 70px;
   width: 90px;
-  margin: 0 30px;
+  margin: 5px 30px;
   overflow-wrap: break-word;
   text-align: center;
   position: relative;
@@ -470,4 +474,25 @@ p {
 
 .times:hover {
   color: #fff;
+}
+
+/* -----------WalletCreator.js----------- */
+
+.walletCreator {
+  margin: 10%;
+  background-color: #116823;
+  padding: 10px 20px;
+  box-shadow: 5px 10px 18px #000;
+}
+
+.walletFields {
+  display: flex;
+}
+
+.walletField {
+  flex-grow: 1;
+  margin-right: 30px
+}
+.addWalletBtn {
+  margin-top: 10px;
 }
