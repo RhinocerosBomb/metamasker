@@ -10,11 +10,11 @@ import EthersContext from '../context/EthersContext';
 
 function MetaMask() {
   const {provider, account, network, wallets} = useContext(EthersContext);
-  const [logs, setLogs] = useState([]);
+  // const [logs, setLogs] = useState([]);
   const [balance, setBalance] = useState();
   const [transactionTo, setTransactionTo] = useState('');
   const [transactionAmount, setTransactionAmount] = useState('');
-  const [activeTab, setActiveTab] = useState('logs');
+  const [activeTab, setActiveTab] = useState('transfer');
   const [activeWallet, setActiveWallet] = useState();
   const [showWalletChooser, setShowWalletChooser] = useState(false);
 
@@ -63,32 +63,34 @@ function MetaMask() {
         {balance} ETH
       </div>
       <div className="tabs">
+        {false &&
           <span className={classNames({navTab: true, active: activeTab === 'logs'})} onClick={() => switchTabs('logs')}>Logs</span>
+        }
           <span className={classNames({navTab: true, active: activeTab === 'transfer'})} onClick={() => switchTabs('transfer')}>Transfer</span>
       </div>
       <div className="logsTransferContainer">
         { activeTab === 'logs' &&
           <div>
-            hi
+            Add logs
           </div>
         }
         { activeTab === 'transfer' && activeWallet &&
-          <div>
-          <div onClick={() => setShowWalletChooser(true)}>
-            Switch Wallets
+        <div>
+          <div className="switchWalletBtn" onClick={() => setShowWalletChooser(true)}>
+            <FontAwesomeIcon icon={faWallet} size="lg"/>
           </div>
-            <div>
-              <label>
-                <input type="text" value={transactionTo} onChange={e => setTransactionTo(e.target.value)} placeholder="Transfer to"/>
-              </label>
-            </div>
-            <div>
-              <label>
-              <input type="number" value={transactionAmount} onChange={e => setTransactionAmount(e.target.value)} placeholder="Amount"/>
-              </label>
-            </div>
-            <button onClick={makeTransaction}>Send</button>
+          <div className="inputBox">
+            Transfer To
+            <input type="text" value={transactionTo} onChange={e => setTransactionTo(e.target.value)}/>
+            <hr />
           </div>
+          <div className="inputBox">
+            Amount
+            <input type="number" value={transactionAmount} onChange={e => setTransactionAmount(e.target.value)}/>
+            <hr />
+          </div>
+          <button onClick={makeTransaction}>Send</button>
+        </div>
         }
         { activeTab === 'transfer' && !activeWallet &&
           <div className="chooseWallet" onClick={() => setShowWalletChooser(true)}>

@@ -42,6 +42,7 @@ function App() {
       web3Provider.on('networkChanged', network => {
         setNetwork(network);
       });
+      connectWithUser();
     }
 
     if(provider !== web3Provider) setProvider(web3Provider);
@@ -74,7 +75,7 @@ function App() {
           <header>
             <Logo {...logoProps}/>
             { (provider && provider.isMetaMask) &&
-              <h1 onClick={() => provider.enable()}>Log In</h1>
+              <h1 onClick={connectWithUser}>Log In</h1>
             }
             { (!provider || !provider.isMetaMask) &&
               <div>

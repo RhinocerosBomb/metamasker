@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import EthersContext from '../context/EthersContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
