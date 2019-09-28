@@ -1,7 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 var timer;
-function LoadingBar({height, start, isInterval, interval, execute, show = true}) {
+function LoadingBar({
+  height,
+  start,
+  isInterval,
+  interval,
+  execute,
+  show = true
+}) {
   const [startTime, setStartTime] = useState(0);
   const [on, setOn] = useState(start);
   const [progress, setProgress] = useState(0);
@@ -10,7 +17,7 @@ function LoadingBar({height, start, isInterval, interval, execute, show = true})
   }, [start]);
 
   useEffect(() => {
-    if(on) {
+    if (on) {
       // if (executeBefore) {
       //   executeBefore();
       // }
@@ -21,37 +28,39 @@ function LoadingBar({height, start, isInterval, interval, execute, show = true})
   }, [on]);
 
   useEffect(() => {
-    if(on) {
+    if (on) {
       startTimer();
     }
   }, [startTime]);
 
   const startTimer = () => {
-    if(on) {
+    if (on) {
       const now = new Date().getTime();
-      if(now - startTime <= interval ) {
-        timer = setTimeout(startTimer, );
-        setProgress((now - startTime)*100/interval + '%');
+      if (now - startTime <= interval) {
+        timer = setTimeout(startTimer);
+        setProgress(((now - startTime) * 100) / interval + '%');
       } else {
-        if(isInterval) {
+        if (isInterval) {
           const now = new Date().getTime();
           setStartTime(now);
         } else {
-          setProgress('100%')
+          setProgress('100%');
         }
         execute();
       }
     }
-  }
+  };
 
   return (
     <React.Fragment>
-      { show &&
+      {show && (
         <div className="loadingBarBorder">
-          <div className="loadingBarFill" style={{height, width: progress}}>
-          </div>
+          <div
+            className="loadingBarFill"
+            style={{ height, width: progress }}
+          ></div>
         </div>
-      }
+      )}
     </React.Fragment>
   );
 }

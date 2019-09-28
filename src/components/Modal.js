@@ -1,20 +1,21 @@
-import React, {useState, useEffect} from 'react';
-import Select from 'react-select';
+import React from 'react';
 
-function SearchBar({show, onClose, children}) {
-  const close = (e) => {
+function SearchBar({ show, onClose, children }) {
+  const close = e => {
     e.stopPropagation();
     onClose && onClose();
-  }
+  };
 
   return (
-    <React.Fragment>{ show &&
-      <div className="backdrop" onClick={close}>
-        <div className="modalContainer" onClick={e => e.stopPropagation()}>
-          {children}
+    <React.Fragment>
+      {show && (
+        <div className="backdrop" onClick={close}>
+          <div className="modalContainer" onClick={e => e.stopPropagation()}>
+            {children}
+          </div>
         </div>
-      </div>
-    }</React.Fragment>
+      )}
+    </React.Fragment>
   );
 }
 

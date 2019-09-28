@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import Logo from './Logo';
 import EthersContext from '../context/EthersContext';
 
-import versionToNetworkName from '../utils/versionToNetworkName'
+import versionToNetworkName from '../utils/versionToNetworkName';
 function TopBar() {
-  const {network} = useContext(EthersContext);
+  const { network } = useContext(EthersContext);
   const logoProps = {
     pxNotRatio: true,
     width: 30,
@@ -17,12 +17,12 @@ function TopBar() {
     followMouse: true,
 
     // head should slowly drift (overrides lookAt)
-    slowDrift: false,
+    slowDrift: false
   };
 
   return (
     <div className="topBar">
-      <Logo {...logoProps}/>
+      <Logo {...logoProps} />
       <span className="network">{versionToNetworkName(network)}</span>
     </div>
   );
