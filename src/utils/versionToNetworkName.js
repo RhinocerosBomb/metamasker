@@ -1,4 +1,4 @@
-const versionToNetworkName = (version) => {
+const versionToNetworkName = version => {
   var name;
   switch (version) {
     case '1':
@@ -19,9 +19,8 @@ const versionToNetworkName = (version) => {
     default:
       name = '';
   }
-  console.log(name);
 
   return name;
-}
+};
 
 export default versionToNetworkName;

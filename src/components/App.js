@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
+import loader from '../resources/loader.svg';
 import EthersContext from '../context/EthersContext';
 import Logo from './Logo';
 import TopBar from './TopBar';
@@ -19,23 +20,34 @@ const logoProps = {
   followMouse: true,
 
   // head should slowly drift (overrides lookAt)
-  slowDrift: false,
+  slowDrift: false
 };
 
 function App() {
   const [provider, setProvider] = useState(window.ethereum || null);
-  const [account, setAccount] = useState(provider ? provider.selectedAddress : null);
-  const [network, setNetwork] = useState(provider ? provider.networkVersion : null);
+  const [account, setAccount] = useState(
+    provider ? provider.selectedAddress : null
+  );
+  const [network, setNetwork] = useState(
+    provider ? provider.networkVersion : null
+  );
   const [wallets, setWallets] = useState([]);
+  const [enabled, setEnabled] = useState(false);
+
   useEffect(() => {
     let web3Provider;
-    if (typeof window.ethereum !== 'undefined'
-    || (typeof window.web3 !== 'undefined')) {
+    if (
+      typeof window.ethereum !== 'undefined' ||
+      typeof window.web3 !== 'undefined'
+    ) {
       web3Provider = window['ethereum'] || window.web3.currentProvider;
       // Web3 browser user detected. You can now use the provider.
       web3Provider.autoRefreshOnNetworkChange = false;
 
       web3Provider.on('accountsChanged', account => {
+        if (account.length === 0) {
+          setEnabled(false);
+        }
         setAccount(account[0]);
       });
 
@@ -45,22 +57,23 @@ function App() {
       connectWithUser();
     }
 
-    if(provider !== web3Provider) setProvider(web3Provider);
-  }, []);
+    if (provider !== web3Provider) setProvider(web3Provider);
+  }, [enabled]);
 
   const connectWithUser = () => {
     provider
       .enable()
       .catch(reason => {
         if (reason === 'User rejected provider access') {
+          alert(':(');
         } else {
-          alert('There was an issue signing you in.')
+          alert('There was an issue signing you in.');
         }
       })
-      .then(accounts => {
-        setAccount(accounts[0]);
+      .then(() => {
+        setEnabled(true);
       });
-  }
+  };
 
   return (
     <EthersContext.Provider
@@ -69,19 +82,22 @@ function App() {
         account: account,
         network,
         wallets
-      }}>
+      }}
+    >
       <div className="App">
-        { !account &&
-          <header>
-            <Logo {...logoProps}/>
-            { (provider && provider.isMetaMask) &&
-              <h1 onClick={connectWithUser}>Log In</h1>
-            }
-            { (!provider || !provider.isMetaMask) &&
+        {!account && (
+          <div className="landing">
+            <Logo {...logoProps} />
+            {provider && provider.isMetaMask && (
               <div>
-                <p>
-                  You do not have Metamask installed
-                </p>
+                <button>
+                  <h1 onClick={connectWithUser}>Log In</h1>
+                </button>
+              </div>
+            )}
+            {(!provider || !provider.isMetaMask) && (
+              <div>
+                <p>You do not have Metamask installed</p>
                 <a
                   href="https://metamask.io"
                   target="_blank"
@@ -90,21 +106,28 @@ function App() {
                   Metamask
                 </a>
               </div>
-            }
-          </header>
-        }
-        { account &&
-          <div className="main">
-            <TopBar/>
-            <div className="pageRow first">
-              <CryptoTracker />
-              <MetaMask />
-            </div>
-            <div className="pageRow second">
-              <WalletManager setWallets={setWallets}/>
-            </div>
+            )}
           </div>
-        }
+        )}
+        {account && !enabled && (
+          <div className="landing">
+            <img src={loader} style={{ margin: '10px' }} alt="loading" />
+          </div>
+        )}
+        {account && enabled && (
+          <div className="main">
+            <>
+              <TopBar />
+              <div className="pageRow first">
+                <CryptoTracker />
+                <MetaMask />
+              </div>
+              <div className="pageRow second">
+                <WalletManager setWallets={setWallets} />
+              </div>
+            </>
+          </div>
+        )}
       </div>
     </EthersContext.Provider>
   );
