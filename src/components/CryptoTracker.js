@@ -4,23 +4,23 @@ import axios from 'axios';
 import classNames from 'classnames';
 import SearchBar from './SearchBar';
 import enterKeyPress from '../utils/enterKeyPress';
-import currencySymbols from '../constants/currencySymbols';
+import {currencySymbols, cryptoSymbols} from '../constants/currencySymbols';
 import loader from '../resources/813.svg'
 
-function Currencies (props) {
+function CryptoTracker (props) {
   const [data, setData] =  useState(null);
   const [currencyState, setCurrencyState] = useState({
     currencies: ['USD', 'CAD'],
     activeCurrency: 'USD'
   });
-  const [cryptoCurrencies, setCurrencies] = useState(['BTC', 'ETH']);
+  const [cryptoCurrencies, setCryptoCurrencies] = useState(['BTC', 'ETH', 'LTC', 'BAT']);
   const [showSearch, setShowSearch] = useState(null);
   const [timer, setTimer] = useState(null);
   const [liveMode, setLiveMode] = useState(false);
-
+  var cryptoIndex = 0;
   useEffect(() => {
     fetchData();
-  }, [currencyState.currencies]);
+  }, [currencyState.currencies, cryptoCurrencies]);
 
   const fetchData = () => {
     axios
@@ -65,9 +65,13 @@ function Currencies (props) {
     }
   }
 
+  const cryptoFilterOptions = ({label}, query) => {
+    return label.toUpperCase().indexOf(query.toUpperCase()) >= 0 && cryptoIndex++ < 100;
+  }
+
   const renderTable = () => {
     return (
-      <div className="table">
+      <div className="tableContainer">
         { data &&
           <React.Fragment>
             <div className="row">
@@ -87,11 +91,14 @@ function Currencies (props) {
             <div className="row labelRow">
               <div className="cell"><p>Coin</p></div>
               <div className="cell"><p>Price</p></div>
+              <div className="cell"><p>Change Today</p></div>
               <div className="cell"><p>Mkt. Cap.</p></div>
-              <div className="cell"><p>stuff</p></div>
-              <div className="cell"><p>stuff</p></div>
+              <div className="cell"><p>Supply</p></div>
             </div>
-            {renderRows()}
+            <div className="table">
+              {renderRows()}
+            </div>
+            <LoadingBar height={10} start={liveMode} execute={fetchData} interval={5000} isInterval show={liveMode}/>
             <div className="row addCoinButton" onClick={() => setShowSearch('CRYP')}><p>Add more coins</p></div>
           </React.Fragment>
         }
@@ -110,9 +117,9 @@ function Currencies (props) {
         <div className="row" key={prop}>
           <div className="cell"><p>{prop}</p></div>
           <div className="cell"><p>{rowData.PRICE}</p></div>
+          <div className="cell"><p>{rowData.CHANGEDAY}</p></div>
           <div className="cell"><p>{rowData.MKTCAP}</p></div>
-          <div className="cell"><p>Coin</p></div>
-          <div className="cell"><p>Coin</p></div>
+          <div className="cell"><p>{rowData.SUPPLY}</p></div>
         </div>
       );
     }
@@ -121,7 +128,7 @@ function Currencies (props) {
   }
 
   return (
-    <div className="currencies">
+    <div className="cryptoTracker">
       <span
         className={classNames({liveButton: true, active: liveMode})}
         onClick={() => setLiveMode(!liveMode)}
@@ -142,9 +149,11 @@ function Currencies (props) {
       />
       <SearchBar
         value={cryptoCurrencies.map(val => ({value: val, label: val}))}
-        options={currencySymbols.map(val => ({value: val, label:val}))}
-        onChange={selectedOptions => updateCurrencies(selectedOptions.map(option => option.value))}
+        options={cryptoSymbols.map(val => ({value: val, label: val}))}
+        onChange={selectedOptions => setCryptoCurrencies(selectedOptions.map(option => option.value))}
         onKeyPress={(e) => enterKeyPress(e, addCurrency)}
+        filterOption={cryptoFilterOptions}
+        onInputChange={() => { cryptoIndex = 0 }}
         isClearable={false}
         show={showSearch === 'CRYP'}
         onClose={() => setShowSearch(null)}
@@ -152,9 +161,8 @@ function Currencies (props) {
         autoFocus
       />
       {renderTable()}
-      <LoadingBar height={10} start={liveMode} execute={fetchData} interval={5000} isInterval show={liveMode}/>
     </div>
   );
 }
 
-export default Currencies;
+export default CryptoTracker;

@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import EthersContext from '../context/EthersContext';
 import Logo from './Logo';
 import TopBar from './TopBar';
-import Currencies from './Currencies';
+import CryptoTracker from './CryptoTracker';
 import MetaMask from './MetaMask';
 import WalletManager from './WalletManager';
 
@@ -96,7 +96,7 @@ function App() {
           <div className="main">
             <TopBar/>
             <div className="pageRow first">
-              <Currencies />
+              <CryptoTracker />
               <MetaMask />
             </div>
             <div className="pageRow second">

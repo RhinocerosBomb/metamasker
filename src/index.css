@@ -191,12 +191,12 @@ button:hover {
   margin: 15% 10%;
 }
 
-/* -----------Currencies.js----------- */
+/* -----------CryptoTracker.js----------- */
 p {
   margin:auto;
 }
 
-.currencies {
+.cryptoTracker {
   background-color: #3500D3;;
   width: 50%;
   margin-right: 15px;
@@ -206,8 +206,16 @@ p {
   position: relative;
 }
 
-.table {
+.tableContainer {
   text-align: center;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 100%;
+}
+
+.table {
+  overflow-y: auto;
 }
 
 .row {
