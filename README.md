@@ -22,11 +22,11 @@ After connecting with MetaMask you will notice that the app has 3 main features:
   2. Wallet Manager
   3. Transactions
  
-## `Crypto Tracker`
+#### `Crypto Tracker`
 You can track cryptocurrencies here. There is the option to add additional crypto and fiat currencies to make further comparisons
 
-## `Wallet Manager`
+#### `Wallet Manager`
 Here you can add as many wallets as you want. All you need is a valid private key. Press the "+" button and fill in the fields to create a wallet.
 
-## `Transactions`
+#### `Transactions`
 To use this you have to have at least one wallet created. Afterwards you can select the wallet you want to use, and then fill out the fields for the target address and the amount. Then press the "send" button to send some Ether.
