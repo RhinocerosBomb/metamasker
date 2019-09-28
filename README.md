@@ -23,7 +23,7 @@ After connecting with MetaMask you will notice that the app has 3 main features:
   3. Transactions
  
 #### `Crypto Tracker`
-You can track cryptocurrencies here. There is the option to add additional crypto and fiat currencies to make further comparisons
+You can track cryptocurrencies here. There is the option to add additional crypto and fiat currencies to make further comparisons. Also by clicking the "live" button the data will refresh every 5s.
 
 #### `Wallet Manager`
 Here you can add as many wallets as you want. All you need is a valid private key. Press the "+" button and fill in the fields to create a wallet.
