@@ -107,7 +107,7 @@ button:focus {
   margin-bottom: 20px;
 }
 
-.inputBox > input[type="text"] {
+.inputBox > input[type="text"], .inputBox >input[type="number"] {
     width: 100%;
     background: transparent;
     border: none;
@@ -116,7 +116,7 @@ button:focus {
   }
 
 
-input[type="text"]:focus ~ hr:first-of-type{
+input[type="text"]:focus ~ hr:first-of-type, input[type="number"]:focus ~ hr:last-of-type{
   background:  #1161ee;
   transform: scale(1);
   height: 2px;
@@ -362,6 +362,16 @@ p {
 }
 
 .chooseWallet:hover {
+  color: #fff;
+}
+
+.switchWalletBtn {
+  color: burlywood;
+  text-align: end;
+  cursor: pointer;
+}
+
+.switchWalletBtn:hover {
   color: #fff;
 }
 
