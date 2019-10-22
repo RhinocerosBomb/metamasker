@@ -116,8 +116,7 @@ function App() {
         )}
         {account && enabled && (
           <div className="main">
-            <>
-              <TopBar />
+                <TopBar />
               <div className="pageRow first">
                 <CryptoTracker />
                 <MetaMask />
@@ -125,7 +124,6 @@ function App() {
               <div className="pageRow second">
                 <WalletManager setWallets={setWallets} />
               </div>
-            </>
           </div>
         )}
       </div>

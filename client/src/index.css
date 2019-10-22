@@ -35,9 +35,15 @@ button {
   color: inherit;
   transition: 0.3s;
 }
+
 a {
   text-decoration: none;
 }
+
+ul {
+  padding: 0;
+}
+
 button {
   overflow: visible;
   border: 0;
@@ -393,6 +399,9 @@ button:hover {
   width: 100%;
   max-height: 44px;
   background-color: #2828282;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
 }
 
 .network {
@@ -518,4 +527,51 @@ button:hover {
 }
 .addWalletBtn {
   margin-top: 10px;
+}
+
+/* -----------Menu.js----------- */
+
+.menu {
+  margin-right: 10px;
+}
+
+.sideMenu {
+  width: 200px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: -200px;
+  z-index: 300;
+  background-color: #282828;
+  box-shadow: 0 0 10px #000;
+  transition: right 0.3s;
+}
+
+.sideMenu.show {
+  right: 0;
+}
+
+.timesRight {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.hamburger {
+  cursor: pointer;
+}
+
+.menuItems {
+  margin-top: 60px;
+}
+
+.menuItem {
+  margin: 5px 48px 0 0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  background-color: #20A4F3;
 }

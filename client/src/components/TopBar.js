@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import Logo from './Logo';
 import EthersContext from '../context/EthersContext';
+import Menu from './Menu';
 
 import versionToNetworkName from '../utils/versionToNetworkName';
 function TopBar() {
   const { network } = useContext(EthersContext);
+  const [showMenu, setShowMenu] = useState(false);
   const logoProps = {
     pxNotRatio: true,
     width: 30,
@@ -24,6 +26,7 @@ function TopBar() {
     <div className="topBar">
       <Logo {...logoProps} />
       <span className="network">{versionToNetworkName(network)}</span>
+      <Menu show={showMenu} setShow={() => setShowMenu(!showMenu)}/>
     </div>
   );
 }
