@@ -25,10 +25,10 @@ function LoginRegisterModal({type, show, onClose, switchType}) {
           </div>
         </div>
         { type === LOGIN &&
-          <Login/>
+          <Login onSubmit={onClose}/>
         }
         { type === REGISTER &&
-          <Register/>
+          <Register onSubmit={onClose}/>
         }
       </div>
     </Modal>

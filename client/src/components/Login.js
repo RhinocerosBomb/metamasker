@@ -1,6 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import StoreContext from '../context/StoreContext';
+import {TOGGLE_USER} from '../constants/actions';
 
-function Login() {
+function Login({onSubmit}) {
+  const {state: {loggedIn}, dispatch} = useContext(StoreContext);
+
   const [fields, setFields] = useState({
     email: '',
     password: ''
@@ -8,6 +12,8 @@ function Login() {
 
   const login = (e) => {
     e.preventDefault();
+    dispatch({type: TOGGLE_USER});
+    onSubmit()
   }
 
   return(

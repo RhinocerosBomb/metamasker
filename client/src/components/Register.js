@@ -1,6 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import StoreContext from '../context/StoreContext';
+import {TOGGLE_USER} from '../constants/actions';
 
-function Register() {
+function Register({onSubmit}) {
+  const {state: {loggedIn}, dispatch} = useContext(StoreContext);
+
   const [fields, setFields] = useState({
     fName: '',
     lName: '',
@@ -10,6 +14,8 @@ function Register() {
 
   const register = (e) => {
     e.preventDefault();
+    dispatch({type: TOGGLE_USER});
+    onSubmit();
   }
 
   return(
