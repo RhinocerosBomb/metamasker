@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useReducer, useMemo} from 'react';
 import { ethers } from 'ethers';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import loader from '../resources/loader.svg';
 import EthersContext from '../context/EthersContext';
 import StoreContext from '../context/StoreContext';
@@ -9,6 +16,7 @@ import TopBar from './TopBar';
 import CryptoTracker from './CryptoTracker';
 import MetaMask from './MetaMask';
 import WalletManager from './WalletManager';
+import Settings from './Settings';
 
 const logoProps = {
   pxNotRatio: true,
@@ -78,8 +86,13 @@ function App() {
           alert('There was an issue signing you in.');
         }
       })
-      .then(() => {
-        setEnabled(true);
+      .then((account) => {
+        if(enabled) {
+          setAccount(account[0]);
+          setNetwork(provider.networkVersion);
+        } else {
+          setEnabled(true);
+        }
       });
   };
 
@@ -93,49 +106,58 @@ function App() {
         wallets
       }}
       >
-      <div className="App">
-      {!account && (
-        <div className="landing">
-        <Logo {...logoProps} />
-        {provider && provider.isMetaMask && (
-          <div>
-          <button>
-          <h1 onClick={connectWithUser}>Log In</h1>
-          </button>
+        <Router>
+          <div className="App">
+          {!account && (
+            <div className="landing">
+            <Logo {...logoProps} />
+            {provider && provider.isMetaMask && (
+              <div>
+              <button>
+              <h1 onClick={connectWithUser}>Log In</h1>
+              </button>
+              </div>
+            )}
+            {(!provider || !provider.isMetaMask) && (
+              <div>
+              <p>You do not have Metamask installed</p>
+              <a
+              href="https://metamask.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              >
+              Metamask
+              </a>
+              </div>
+            )}
+            </div>
+          )}
+          {account && !enabled && (
+            <div className="landing">
+            <img src={loader} style={{ margin: '10px' }} alt="loading" />
+            </div>
+          )}
+          {account && enabled && (
+            <div className="main">
+            <TopBar />
+            <Switch>
+              <Route exact path="/">
+                <div className="pageRow first">
+                <CryptoTracker />
+                <MetaMask />
+                </div>
+                <div className="pageRow second">
+                <WalletManager setWallets={setWallets} />
+                </div>
+              </Route>
+              <Route exact path="/Settings">
+                <Settings/>
+              </Route>
+            </Switch>
+            </div>
+          )}
           </div>
-        )}
-        {(!provider || !provider.isMetaMask) && (
-          <div>
-          <p>You do not have Metamask installed</p>
-          <a
-          href="https://metamask.io"
-          target="_blank"
-          rel="noopener noreferrer"
-          >
-          Metamask
-          </a>
-          </div>
-        )}
-        </div>
-      )}
-      {account && !enabled && (
-        <div className="landing">
-        <img src={loader} style={{ margin: '10px' }} alt="loading" />
-        </div>
-      )}
-      {account && enabled && (
-        <div className="main">
-        <TopBar />
-        <div className="pageRow first">
-        <CryptoTracker />
-        <MetaMask />
-        </div>
-        <div className="pageRow second">
-        <WalletManager setWallets={setWallets} />
-        </div>
-        </div>
-      )}
-      </div>
+        </Router>
       </EthersContext.Provider>
     </StoreContext.Provider>
   );

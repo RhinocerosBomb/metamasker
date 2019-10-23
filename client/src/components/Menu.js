@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
+import {Link} from "react-router-dom";
 
 import StoreContext from '../context/StoreContext';
 import {TOGGLE_USER} from '../constants/actions';
@@ -15,9 +16,10 @@ function Menu({show, setShow}) {
       <div className={classNames('sideMenu', {show})}>
         <FontAwesomeIcon className="timesRight" icon={faTimes} size="lg" onClick={setShow}/>
         <ul className="menuItems">
+          <Link to="/"><li className="menuItem">Home</li></Link>
           { loggedIn &&
             <>
-              <li className="menuItem">Settings</li>
+              <Link to="/settings"><li className="menuItem">Settings</li></Link>
               <li className="menuItem" onClick={() => dispatch({type: TOGGLE_USER})}>Logout</li>
             </>
           }

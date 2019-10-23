@@ -575,3 +575,7 @@ button:hover {
 .menuItem:hover {
   background-color: #20A4F3;
 }
+
+.settings {
+  height: 100%;
+}
