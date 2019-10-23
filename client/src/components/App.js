@@ -1,12 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer, useMemo} from 'react';
 import { ethers } from 'ethers';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import loader from '../resources/loader.svg';
 import EthersContext from '../context/EthersContext';
+import StoreContext from '../context/StoreContext';
+import UserReducer from '../reducers/UserReducer';
 import Logo from './Logo';
 import TopBar from './TopBar';
 import CryptoTracker from './CryptoTracker';
 import MetaMask from './MetaMask';
 import WalletManager from './WalletManager';
+import Settings from './Settings';
 
 const logoProps = {
   pxNotRatio: true,
@@ -23,6 +33,10 @@ const logoProps = {
   slowDrift: false
 };
 
+const initialState = {
+  loggedIn: false
+};
+
 function App() {
   const [provider, setProvider] = useState(window.ethereum || null);
   const [account, setAccount] = useState(
@@ -33,6 +47,8 @@ function App() {
   );
   const [wallets, setWallets] = useState([]);
   const [enabled, setEnabled] = useState(false);
+
+  const [state, dispatch] = useReducer(UserReducer, initialState);
 
   useEffect(() => {
     let web3Provider;
@@ -70,23 +86,30 @@ function App() {
           alert('There was an issue signing you in.');
         }
       })
-      .then(() => {
-        setEnabled(true);
+      .then((account) => {
+        if(enabled) {
+          setAccount(account[0]);
+          setNetwork(provider.networkVersion);
+        } else {
+          setEnabled(true);
+        }
       });
   };
 
   return (
-    <EthersContext.Provider
+    <StoreContext.Provider value={useMemo(() => ({ state, dispatch }), [state, dispatch])}>
+      <EthersContext.Provider
       value={{
         provider: provider ? new ethers.providers.Web3Provider(provider) : null,
         account: account,
         network,
         wallets
       }}
-    >
-      <div className="App">
-        {!account && (
-          <div className="landing">
+      >
+        <Router>
+          <div className="App">
+          {!account && (
+            <div className="landing">
             <Logo {...logoProps} />
             {provider && provider.isMetaMask && (
               <div>
@@ -98,38 +121,45 @@ function App() {
             {(!provider || !provider.isMetaMask) && (
               <div>
                 <p>You do not have Metamask installed</p>
-                <a
+                  <a
                   href="https://metamask.io"
                   target="_blank"
                   rel="noopener noreferrer"
-                >
+                  >
                   Metamask
-                </a>
+                  </a>
               </div>
             )}
+            </div>
+          )}
+          {account && !enabled && (
+            <div className="landing">
+              <img src={loader} style={{ margin: '10px' }} alt="loading" />
+            </div>
+          )}
+          {account && enabled && (
+            <div className="main">
+            <TopBar />
+            <Switch>
+              <Route exact path="/">
+                <div className="pageRow first">
+                  <CryptoTracker />
+                  <MetaMask />
+                </div>
+                <div className="pageRow second">
+                  <WalletManager setWallets={setWallets} />
+                </div>
+              </Route>
+              <Route exact path="/Settings">
+                <Settings/>
+              </Route>
+            </Switch>
+            </div>
+          )}
           </div>
-        )}
-        {account && !enabled && (
-          <div className="landing">
-            <img src={loader} style={{ margin: '10px' }} alt="loading" />
-          </div>
-        )}
-        {account && enabled && (
-          <div className="main">
-            <>
-              <TopBar />
-              <div className="pageRow first">
-                <CryptoTracker />
-                <MetaMask />
-              </div>
-              <div className="pageRow second">
-                <WalletManager setWallets={setWallets} />
-              </div>
-            </>
-          </div>
-        )}
-      </div>
-    </EthersContext.Provider>
+        </Router>
+      </EthersContext.Provider>
+    </StoreContext.Provider>
   );
 }
 

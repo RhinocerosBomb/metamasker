@@ -10,9 +10,9 @@ function SearchBar({ show, onClose, children }) {
     <React.Fragment>
       {show && (
         <div className="backdrop" onClick={close}>
-          <div className="modalContainer" onClick={e => e.stopPropagation()}>
+          <section className="modalContainer" onClick={e => e.stopPropagation()}>
             {children}
-          </div>
+          </section>
         </div>
       )}
     </React.Fragment>

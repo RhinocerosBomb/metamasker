@@ -21,12 +21,7 @@ main,
 li {
   display: block;
 }
-h1,
-h2,
-h3,
-h4 {
-  font-size: inherit;
-}
+
 strong {
   font-weight: bold;
 }
@@ -35,9 +30,15 @@ button {
   color: inherit;
   transition: 0.3s;
 }
+
 a {
   text-decoration: none;
 }
+
+ul {
+  padding: 0;
+}
+
 button {
   overflow: visible;
   border: 0;
@@ -107,16 +108,24 @@ button:focus {
   margin-bottom: 20px;
 }
 
-.inputBox > input[type="text"], .inputBox >input[type="number"] {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-    color: #fff;
-  }
+.inputBox > input[type="text"], .inputBox >input[type="number"], .inputBox >input[type="password"] {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+.inputBox.dark > input[type="text"], .inputBox.dark >input[type="number"], .inputBox.dark >input[type="password"] {
+  color: #282828;
+}
+
+.inputBox.dark > input[type="text"], .inputBox.dark >input[type="number"], .inputBox.dark >input[type="password"] {
+  border-bottom: 1px solid rgba(49, 50, 68, 0.6);
+}
 
 
-input[type="text"]:focus ~ hr:first-of-type, input[type="number"]:focus ~ hr:last-of-type{
+input[type="text"]:focus ~ hr:first-of-type, input[type="number"]:focus ~ hr:last-of-type, input[type="password"]:focus ~ hr:last-of-type{
   background-color:  #1161ee;
   transform: scale(1);
   height: 2px;
@@ -134,7 +143,7 @@ hr {
   margin-bottom: 0px;
   margin: 0;
   border: 0;
-  background-color:  #fff;
+  background-color: #fff;
   height: 0px;
   transition: transform 0.5s linear, background 0.4s linear;
   transform: scale(0, 1);
@@ -144,6 +153,10 @@ button {
   padding: 10px 15px;
   border: 1px solid #fff;
   transition: all 0.4s ease 0s;
+}
+
+button.dark {
+  border: 1px solid rgba(49, 50, 68, 0.6);
 }
 
 button:hover {
@@ -186,11 +199,11 @@ button:hover {
   left: 0;
   right: 0;
   background: rgba(0,0,0,0.5);
-  z-index: 1;
+  z-index: 300;
 }
 
 .modalContainer {
-  z-index: 100;
+  z-index: 400;
 }
 
 /* -----------SearchBar.js----------- */
@@ -393,6 +406,9 @@ button:hover {
   width: 100%;
   max-height: 44px;
   background-color: #2828282;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
 }
 
 .network {
@@ -518,4 +534,107 @@ button:hover {
 }
 .addWalletBtn {
   margin-top: 10px;
+}
+
+/* -----------Menu.js----------- */
+
+.menu {
+  margin-right: 10px;
+}
+
+.sideMenu {
+  width: 200px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: -200px;
+  z-index: 200;
+  background-color: #282828;
+  box-shadow: 0 0 10px #000;
+  transition: right 0.3s;
+}
+
+.sideMenu.show {
+  right: 0;
+}
+
+.timesRight {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.hamburger {
+  cursor: pointer;
+}
+
+.menuItems {
+  margin-top: 60px;
+}
+
+.menuItem {
+  margin: 5px 48px 0 0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  background-color: #20A4F3;
+}
+
+.settings {
+  height: 100%;
+}
+
+/* -----------LoginRegisterModal.js----------- */
+
+.loginRegister {
+  margin: 10% 33%;
+  height: 500px;
+  background-color: #3476bd;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginRegisterHeader {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.loginRegisterTab {
+  flex-grow: 1;
+  text-align: center;
+  cursor: pointer;
+}
+
+.loginRegisterTab.active {
+  background-color: #3E92CB;
+}
+
+/* -----------Login.js----------- */
+
+.login {
+  height: 100%;
+  background-color:#fff;
+  color: #1b4ca0;
+  padding: 40px 40px 0px 40px;
+  flex-grow: 1;
+}
+
+.loginButton {
+  width: 100%;
+  margin-top: 15px;
+}
+
+/* -----------Register.js----------- */
+
+.register {
+  height: 100%;
+  background-color:#fff;
+  color: #000;
+  color: #1b4ca0;
+  padding: 40px 40px 0px 40px;
+  flex-grow: 1;
 }
