@@ -113,28 +113,28 @@ function App() {
             <Logo {...logoProps} />
             {provider && provider.isMetaMask && (
               <div>
-              <button>
-              <h1 onClick={connectWithUser}>Log In</h1>
-              </button>
+                <button>
+                  <h1 onClick={connectWithUser}>Log In</h1>
+                </button>
               </div>
             )}
             {(!provider || !provider.isMetaMask) && (
               <div>
-              <p>You do not have Metamask installed</p>
-              <a
-              href="https://metamask.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              >
-              Metamask
-              </a>
+                <p>You do not have Metamask installed</p>
+                  <a
+                  href="https://metamask.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >
+                  Metamask
+                  </a>
               </div>
             )}
             </div>
           )}
           {account && !enabled && (
             <div className="landing">
-            <img src={loader} style={{ margin: '10px' }} alt="loading" />
+              <img src={loader} style={{ margin: '10px' }} alt="loading" />
             </div>
           )}
           {account && enabled && (
@@ -143,11 +143,11 @@ function App() {
             <Switch>
               <Route exact path="/">
                 <div className="pageRow first">
-                <CryptoTracker />
-                <MetaMask />
+                  <CryptoTracker />
+                  <MetaMask />
                 </div>
                 <div className="pageRow second">
-                <WalletManager setWallets={setWallets} />
+                  <WalletManager setWallets={setWallets} />
                 </div>
               </Route>
               <Route exact path="/Settings">

@@ -4,11 +4,20 @@ import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 import {Link} from "react-router-dom";
 
+import {LoginRegisterModal, LOGIN, REGISTER} from './LoginRegisterModal';
 import StoreContext from '../context/StoreContext';
 import {TOGGLE_USER} from '../constants/actions';
 
 function Menu({show, setShow}) {
   const {state: {loggedIn}, dispatch} = useContext(StoreContext);
+  const [loginRegisterState, setLoginRegisterState] = useState({show: false, type: LOGIN});
+  const closeLoginRegister = () => {
+      setLoginRegisterState({...loginRegisterState, ...{show: false}});
+  }
+
+  const switchLoginRegister = type => {
+    setLoginRegisterState({...loginRegisterState, ...{type}});
+  }
 
   return (
     <div className="menu">
@@ -24,10 +33,20 @@ function Menu({show, setShow}) {
             </>
           }
           { !loggedIn &&
-            <li className="menuItem" onClick={() => dispatch({type: TOGGLE_USER})}>Login</li>
+            <>
+              <li
+              className="menuItem"
+              onClick={() => setLoginRegisterState({show: true, type: LOGIN})}>
+                Login
+              </li>
+              <li
+              className="menuItem"
+              onClick={() => setLoginRegisterState({show: true, type: REGISTER})}>Register</li>
+            </>
           }
         </ul>
       </div>
+      <LoginRegisterModal onClose={closeLoginRegister} switchType={switchLoginRegister} {...loginRegisterState}/>
     </div>
   );
 }
