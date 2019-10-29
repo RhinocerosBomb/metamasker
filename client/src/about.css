@@ -1,0 +1,22 @@
+.flex{
+  display: flex;
+}
+.container{
+  width: 90%;
+  margin: 0 auto;
+}
+.box{
+  background: white;
+  width: 50%;
+  PADDING: 5px;
+  text-align: center;
+  margin: 5px;
+  border-radius: 10px;
+  color: #000;
+}
+.picTeam img{
+  width: 30%;
+  border-radius: 100%;
+  margin: 0 auto;
+  display: block;
+}
