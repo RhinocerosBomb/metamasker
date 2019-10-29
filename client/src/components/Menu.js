@@ -44,6 +44,7 @@ function Menu({show, setShow}) {
               onClick={() => setLoginRegisterState({show: true, type: REGISTER})}>Register</li>
             </>
           }
+            <Link to="/about"><li className="menuItem">About</li></Link>
         </ul>
       </div>
       <LoginRegisterModal onClose={closeLoginRegister} switchType={switchLoginRegister} {...loginRegisterState}/>

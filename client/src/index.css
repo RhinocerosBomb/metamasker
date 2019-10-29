@@ -638,3 +638,20 @@ button:hover {
   padding: 40px 40px 0px 40px;
   flex-grow: 1;
 }
+
+/************** setting.js ***************/
+.buttonSetting{
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+.buttonSetting button{
+  border-radius: 5px;
+  border:2px solid #fff;
+  margin: 20px;
+  color: #fff;
+  transition: all 150ms ease-in-out;
+}
+.buttonSetting button:hover{
+  box-shadow: 0 0 10px 0 #fff inset, 0 0 10px 4px #fff;
+}

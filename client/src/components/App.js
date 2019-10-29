@@ -17,6 +17,8 @@ import CryptoTracker from './CryptoTracker';
 import MetaMask from './MetaMask';
 import WalletManager from './WalletManager';
 import Settings from './Settings';
+import About from './About';
+
 
 const logoProps = {
   pxNotRatio: true,
@@ -34,7 +36,20 @@ const logoProps = {
 };
 
 const initialState = {
-  loggedIn: false
+ loggedIn: false,
+ settings: {
+   cryptoTracker: {
+     saveLiveMode: true,
+     saveCurrencyState: true,
+     saveCryptoCurrencies:true,
+     liveMode: false,
+     currencyState: {
+       currencies: ['USD', 'CAD'],
+       activeCurrency: 'USD'
+     },
+     cryptoCurrencies: ['BTC', 'ETH', 'LTC', 'BAT']
+   },
+ }
 };
 
 function App() {
@@ -153,6 +168,10 @@ function App() {
               <Route exact path="/Settings">
                 <Settings/>
               </Route>
+              <Route exact path="/About">
+                <About/>
+              </Route>
+
             </Switch>
             </div>
           )}
