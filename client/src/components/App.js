@@ -6,6 +6,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import axios from 'axios';
 
 import loader from '../resources/loader.svg';
 import EthersContext from '../context/EthersContext';
@@ -18,6 +19,9 @@ import MetaMask from './MetaMask';
 import WalletManager from './WalletManager';
 import Settings from './Settings';
 import About from './About';
+import {SETTINGS_INIT} from '../constants/actions';
+
+
 
 
 const logoProps = {
@@ -89,6 +93,22 @@ function App() {
     }
 
     if (provider !== web3Provider) setProvider(web3Provider);
+
+    if (enabled){
+      var config = {
+        headers: {'Access-Control-Allow-Origin': '*'}
+     };
+      axios
+        .get(
+          'http://localhost:8080/users',
+          config
+        )
+        .then(payload => {
+          // setData(payload.data.DISPLAY);
+          console.log(payload);
+          dispatch({type: SETTINGS_INIT, data: payload.data});
+        });
+    }
   }, [enabled]);
 
   const connectWithUser = () => {
