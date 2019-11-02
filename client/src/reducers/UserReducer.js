@@ -1,4 +1,4 @@
-import {TOGGLE_USER, SAVE_LIVE_MODE, SAVE_CURRENCY_STATE, SAVE_CRYPTO_CURRENCIES} from '../constants/actions';
+import {SETTINGS_INIT,TOGGLE_USER, SAVE_LIVE_MODE, SAVE_CURRENCY_STATE, SAVE_CRYPTO_CURRENCIES} from '../constants/actions';
 
 const UserReducer = (state, action) => {
   let newState = {...state};
@@ -15,7 +15,10 @@ const UserReducer = (state, action) => {
     case  SAVE_CRYPTO_CURRENCIES:
       newState.settings.cryptoTracker.saveCryptoCurrencies = !state.settings.cryptoTracker.saveCryptoCurrencies;
       break;
-
+    case  SETTINGS_INIT:
+      console.log(action.data.settings);
+      newState.settings = action.data.settings;
+      break;
     default:
   }
   return newState;
