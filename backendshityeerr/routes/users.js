@@ -31,8 +31,13 @@ router.post('/register', function(req, res, next) {
     });
 })
 
-
-
+router.post('/logout', function(req, res, next) {
+  admin.auth().signOut(email).then(function() {
+    console.log('Signed Out');
+   }, function(error) {
+    console.error('Sign Out Error', error)
+   });
+  });
 
 router.get('/login', function(req, res, next){
   admin.auth().getUserByEmail('samitannir@gmail.com')
