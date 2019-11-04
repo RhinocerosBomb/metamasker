@@ -1,28 +1,20 @@
-import React, { useState, useEffect, useReducer, useMemo} from 'react';
-import { ethers } from 'ethers';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import axios from 'axios';
+import React, { useState, useEffect, useReducer, useMemo } from "react";
+import { ethers } from "ethers";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
 
-import loader from '../resources/loader.svg';
-import EthersContext from '../context/EthersContext';
-import StoreContext from '../context/StoreContext';
-import UserReducer from '../reducers/UserReducer';
-import Logo from './Logo';
-import TopBar from './TopBar';
-import CryptoTracker from './CryptoTracker';
-import MetaMask from './MetaMask';
-import WalletManager from './WalletManager';
-import Settings from './Settings';
-import About from './About';
-import {SETTINGS_INIT} from '../constants/actions';
-
-
-
+import loader from "../resources/loader.svg";
+import EthersContext from "../context/EthersContext";
+import StoreContext from "../context/StoreContext";
+import UserReducer from "../reducers/UserReducer";
+import Logo from "./Logo";
+import TopBar from "./TopBar";
+import CryptoTracker from "./CryptoTracker";
+import MetaMask from "./MetaMask";
+import WalletManager from "./WalletManager";
+import Settings from "./Settings";
+import About from "./About";
+import { SETTINGS_INIT } from "../constants/actions";
 
 const logoProps = {
   pxNotRatio: true,
@@ -40,23 +32,24 @@ const logoProps = {
 };
 
 const initialState = {
- loggedIn: false,
- settings: {
-   cryptoTracker: {
-     saveLiveMode: true,
-     saveCurrencyState: true,
-     saveCryptoCurrencies:true,
-     liveMode: false,
-     currencyState: {
-       currencies: ['USD', 'CAD'],
-       activeCurrency: 'USD'
-     },
-     cryptoCurrencies: ['BTC', 'ETH', 'LTC', 'BAT']
-   },
- }
+  loggedIn: false,
+  auth: null,
+  settings: {
+    cryptoTracker: {
+      saveLiveMode: true,
+      saveCurrencyState: true,
+      saveCryptoCurrencies: true,
+      liveMode: false,
+      currencyState: {
+        currencies: ["USD", "CAD"],
+        activeCurrency: "USD"
+      },
+      cryptoCurrencies: ["BTC", "ETH", "LTC", "BAT"]
+    }
+  }
 };
 
-function App({firebase}) {
+function App({ firebase }) {
   const [provider, setProvider] = useState(window.ethereum || null);
   const [account, setAccount] = useState(
     provider ? provider.selectedAddress : null
@@ -72,21 +65,21 @@ function App({firebase}) {
   useEffect(() => {
     let web3Provider;
     if (
-      typeof window.ethereum !== 'undefined' ||
-      typeof window.web3 !== 'undefined'
+      typeof window.ethereum !== "undefined" ||
+      typeof window.web3 !== "undefined"
     ) {
-      web3Provider = window['ethereum'] || window.web3.currentProvider;
+      web3Provider = window["ethereum"] || window.web3.currentProvider;
       // Web3 browser user detected. You can now use the provider.
       web3Provider.autoRefreshOnNetworkChange = false;
 
-      web3Provider.on('accountsChanged', account => {
+      web3Provider.on("accountsChanged", account => {
         if (account.length === 0) {
           setEnabled(false);
         }
         setAccount(account[0]);
       });
 
-      web3Provider.on('networkChanged', network => {
+      web3Provider.on("networkChanged", network => {
         setNetwork(network);
       });
       connectWithUser();
@@ -94,19 +87,16 @@ function App({firebase}) {
 
     if (provider !== web3Provider) setProvider(web3Provider);
 
-    if (enabled){
+    if (enabled) {
       var config = {
-        headers: {'Access-Control-Allow-Origin': '*'}
-     };
+        headers: { "Access-Control-Allow-Origin": "*" }
+      };
       axios
-        .get(
-          'http://localhost:8080/users',
-          config
-        )
+        .get("http://localhost:8080/users/settings", config)
         .then(payload => {
           // setData(payload.data.DISPLAY);
           console.log(payload);
-          dispatch({type: SETTINGS_INIT, data: payload.data});
+          dispatch({ type: SETTINGS_INIT, data: payload.data });
         });
     }
   }, [enabled]);
@@ -115,14 +105,14 @@ function App({firebase}) {
     provider
       .enable()
       .catch(reason => {
-        if (reason === 'User rejected provider access') {
-          alert(':(');
+        if (reason === "User rejected provider access") {
+          alert(":(");
         } else {
-          alert('There was an issue signing you in.');
+          alert("There was an issue signing you in.");
         }
       })
-      .then((account) => {
-        if(enabled) {
+      .then(account => {
+        if (enabled) {
           setAccount(account[0]);
           setNetwork(provider.networkVersion);
         } else {
@@ -132,69 +122,72 @@ function App({firebase}) {
   };
 
   return (
-    <StoreContext.Provider value={useMemo(() => ({ state, dispatch }), [state, dispatch])}>
+    <StoreContext.Provider
+      value={useMemo(() => ({ state, dispatch }), [state, dispatch])}
+    >
       <EthersContext.Provider
-      value={{
-        provider: provider ? new ethers.providers.Web3Provider(provider) : null,
-        account: account,
-        network,
-        wallets
-      }}
+        value={{
+          provider: provider
+            ? new ethers.providers.Web3Provider(provider)
+            : null,
+          account: account,
+          network,
+          wallets
+        }}
       >
         <Router>
           <div className="App">
-          {!account && (
-            <div className="landing">
-            <Logo {...logoProps} />
-            {provider && provider.isMetaMask && (
-              <div>
-                <button>
-                  <h1 onClick={connectWithUser}>Log In</h1>
-                </button>
+            {!account && (
+              <div className="landing">
+                <Logo {...logoProps} />
+                {provider && provider.isMetaMask && (
+                  <div>
+                    <button>
+                      <h1 onClick={connectWithUser}>Log In</h1>
+                    </button>
+                  </div>
+                )}
+                {(!provider || !provider.isMetaMask) && (
+                  <div>
+                    <p>You do not have Metamask installed</p>
+                    <a
+                      href="https://metamask.io"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Metamask
+                    </a>
+                  </div>
+                )}
               </div>
             )}
-            {(!provider || !provider.isMetaMask) && (
-              <div>
-                <p>You do not have Metamask installed</p>
-                  <a
-                  href="https://metamask.io"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >
-                  Metamask
-                  </a>
+            {account && !enabled && (
+              <div className="landing">
+                <img src={loader} style={{ margin: "10px" }} alt="loading" />
               </div>
             )}
-            </div>
-          )}
-          {account && !enabled && (
-            <div className="landing">
-              <img src={loader} style={{ margin: '10px' }} alt="loading" />
-            </div>
-          )}
-          {account && enabled && (
-            <div className="main">
-            <TopBar firebase={firebase}/>
-            <Switch>
-              <Route exact path="/">
-                <div className="pageRow first">
-                  <CryptoTracker />
-                  <MetaMask />
-                </div>
-                <div className="pageRow second">
-                  <WalletManager setWallets={setWallets} />
-                </div>
-              </Route>
-              <Route exact path="/Settings">
-                <Settings />
-              </Route>
-              <Route exact path="/About">
-                <About/>
-              </Route>
-
-            </Switch>
-            </div>
-          )}
+            {account && enabled && (
+              <div className="main">
+                <TopBar firebase={firebase} />
+                <Switch>
+                  <Route exact path="/">
+                    <div className="pageRow first">
+                      <CryptoTracker />
+                      <MetaMask />
+                    </div>
+                    <div className="pageRow second">
+                      <WalletManager setWallets={setWallets} />
+                    </div>
+                  </Route>
+                  <Route exact path="/Settings">
+                    <Settings />
+                  </Route>
+                  <Route exact path="/About">
+                    <About />
+                  </Route>
+                </Switch>
+              </div>
+            )}
           </div>
         </Router>
       </EthersContext.Provider>

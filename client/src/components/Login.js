@@ -18,8 +18,9 @@ function Login({ firebase, onSubmit }) {
     firebase
       .auth()
       .signInWithEmailAndPassword(fields.email, fields.password)
-      .then((a, b, c) => {
-        dispatch({ type: LOG_IN });
+      .then(auth => {
+        console.log(auth);
+        dispatch({ type: LOG_IN, data: auth });
         onSubmit();
       });
   };

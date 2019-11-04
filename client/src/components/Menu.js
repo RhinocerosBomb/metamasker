@@ -11,7 +11,7 @@ import { LOG_OUT } from "../constants/actions";
 
 function Menu({ firebase, show, setShow }) {
   const {
-    state: { loggedIn },
+    state: { loggedIn, auth },
     dispatch
   } = useContext(StoreContext);
 
@@ -27,11 +27,13 @@ function Menu({ firebase, show, setShow }) {
     setLoginRegisterState({ ...loginRegisterState, ...{ type } });
   };
 
-  const logLout = e => {
+  const logOut = e => {
     e.preventDefault();
-    axios.get("http://localhost:8080/user/signout").then(() => {
-      dispatch({ type: LOG_OUT });
-    });
+    axios
+      .post("http://localhost:8080/users/logout", auth.user.email)
+      .then(() => {
+        dispatch({ type: LOG_OUT });
+      });
   };
 
   return (
@@ -58,10 +60,7 @@ function Menu({ firebase, show, setShow }) {
               <Link to="/settings">
                 <li className="menuItem">Settings</li>
               </Link>
-              <li
-                className="menuItem"
-                onClick={() => dispatch({ type: LOG_OUT })}
-              >
+              <li className="menuItem" onClick={logOut}>
                 Logout
               </li>
             </>

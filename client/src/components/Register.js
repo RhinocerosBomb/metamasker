@@ -19,7 +19,7 @@ function Register({ onSubmit }) {
   const register = e => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/user/register", {
+      .post("http://localhost:8080/users/register", {
         displayName: fields.fName + " " + fields.lName,
         email: fields.email,
         password: fields.password
@@ -58,7 +58,7 @@ function Register({ onSubmit }) {
           <hr />
         </div>
         <div className="inputBox dark">
-          Name
+          Email
           <input
             className="hasColorBlack"
             type="text"
