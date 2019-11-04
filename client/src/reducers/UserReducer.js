@@ -1,9 +1,9 @@
-import {SETTINGS_INIT,TOGGLE_USER, SAVE_LIVE_MODE, SAVE_CURRENCY_STATE, SAVE_CRYPTO_CURRENCIES} from '../constants/actions';
+import {LOG_IN, SAVE_LIVE_MODE, SAVE_CURRENCY_STATE, SAVE_CRYPTO_CURRENCIES} from '../constants/actions';
 
 const UserReducer = (state, action) => {
   let newState = {...state};
   switch (action.type) {
-    case TOGGLE_USER:
+    case LOG_IN:
       newState.loggedIn = !state.loggedIn;
       break;
     case SAVE_LIVE_MODE:

@@ -4,7 +4,7 @@ import EthersContext from '../context/EthersContext';
 import Menu from './Menu';
 
 import versionToNetworkName from '../utils/versionToNetworkName';
-function TopBar() {
+function TopBar({firebase}) {
   const { network } = useContext(EthersContext);
   const [showMenu, setShowMenu] = useState(false);
   const logoProps = {
@@ -26,7 +26,7 @@ function TopBar() {
     <div className="topBar">
       <Logo {...logoProps} />
       <span className="network">{versionToNetworkName(network)}</span>
-      <Menu show={showMenu} setShow={() => setShowMenu(!showMenu)}/>
+      <Menu firebase={firebase} show={showMenu} setShow={() => setShowMenu(!showMenu)}/>
     </div>
   );
 }

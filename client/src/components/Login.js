@@ -1,22 +1,30 @@
-import React, {useState, useContext} from 'react';
-import StoreContext from '../context/StoreContext';
-import {TOGGLE_USER} from '../constants/actions';
+import React, { useState, useContext } from "react";
+import StoreContext from "../context/StoreContext";
+import { LOG_IN } from "../constants/actions";
 
-function Login({onSubmit}) {
-  const {state: {loggedIn}, dispatch} = useContext(StoreContext);
+function Login({ firebase, onSubmit }) {
+  const {
+    state: { loggedIn },
+    dispatch
+  } = useContext(StoreContext);
 
   const [fields, setFields] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: ""
   });
 
-  const login = (e) => {
+  const login = e => {
     e.preventDefault();
-    dispatch({type: TOGGLE_USER});
-    onSubmit()
-  }
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(fields.email, fields.password)
+      .then((a, b, c) => {
+        dispatch({ type: LOG_IN });
+        onSubmit();
+      });
+  };
 
-  return(
+  return (
     <div className="login">
       <form onSubmit={e => login(e)} className="loginFields">
         <div className="inputBox dark">
@@ -25,9 +33,11 @@ function Login({onSubmit}) {
             className="hasColorBlack"
             type="text"
             value={fields.email}
-            onChange={e => setFields({...fields, ...{email: e.target.value}})}
+            onChange={e =>
+              setFields({ ...fields, ...{ email: e.target.value } })
+            }
           />
-          <hr/>
+          <hr />
         </div>
         <div className="inputBox dark">
           Password
@@ -35,11 +45,15 @@ function Login({onSubmit}) {
             className="hasColorBlack"
             type="password"
             value={fields.password}
-            onChange={e => setFields({...fields, ...{password: e.target.value}})}
+            onChange={e =>
+              setFields({ ...fields, ...{ password: e.target.value } })
+            }
           />
-          <hr/>
+          <hr />
         </div>
-        <button className="loginButton dark" type="submit">LOG IN</button>
+        <button className="loginButton dark" type="submit">
+          LOG IN
+        </button>
       </form>
     </div>
   );

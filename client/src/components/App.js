@@ -56,7 +56,7 @@ const initialState = {
  }
 };
 
-function App() {
+function App({firebase}) {
   const [provider, setProvider] = useState(window.ethereum || null);
   const [account, setAccount] = useState(
     provider ? provider.selectedAddress : null
@@ -174,7 +174,7 @@ function App() {
           )}
           {account && enabled && (
             <div className="main">
-            <TopBar />
+            <TopBar firebase={firebase}/>
             <Switch>
               <Route exact path="/">
                 <div className="pageRow first">
@@ -186,7 +186,7 @@ function App() {
                 </div>
               </Route>
               <Route exact path="/Settings">
-                <Settings/>
+                <Settings />
               </Route>
               <Route exact path="/About">
                 <About/>

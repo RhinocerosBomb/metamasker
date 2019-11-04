@@ -8,7 +8,7 @@ import Register from './Register';
 const LOGIN = "LOGIN";
 const REGISTER = "REGISTER";
 
-function LoginRegisterModal({type, show, onClose, switchType}) {
+function LoginRegisterModal({firebase, type, show, onClose, switchType}) {
   return(
     <Modal show={show} onClose={onClose}>
       <div className="loginRegister">
@@ -25,7 +25,7 @@ function LoginRegisterModal({type, show, onClose, switchType}) {
           </div>
         </div>
         { type === LOGIN &&
-          <Login onSubmit={onClose}/>
+          <Login firebase={firebase} onSubmit={onClose}/>
         }
         { type === REGISTER &&
           <Register onSubmit={onClose}/>

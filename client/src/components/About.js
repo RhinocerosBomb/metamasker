@@ -29,11 +29,11 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 
         <div class="box">
             <div class="picTeam">
-                <img src= {images}/>
+                <img src="https://ca.slack-edge.com/TMYSQE80G-UN2L48TPX-9c5f8f12cc85-512"/>
             </div>
             <div class="descriptionTeam">
               <h2>JASON</h2>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+              <p>RedBalls! Cocaine in a can baby!</p>
             </div>
         </div>
 

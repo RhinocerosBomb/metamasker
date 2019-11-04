@@ -10,6 +10,7 @@
     "classnames": "^2.2.6",
     "eslint-config-react": "^1.1.7",
     "ethers": "^4.0.37",
+    "firebase": "^7.2.3",
     "metamask-logo": "^2.2.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
